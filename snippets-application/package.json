@@ -1,0 +1,17 @@
+{
+  "name": "snippets-application",
+  "version": "1.0.0",
+  "description": "an app for users to share code snippets",
+  "main": "server.js",
+  "scripts": {
+    "start": "npx nodemon server.js"
+  },
+  "author": "Thomas Benson",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

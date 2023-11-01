@@ -1,0 +1,47 @@
+[
+	{
+		"id": 1,
+		"title": "Hello World in Python",
+		"snippet": "print('Hello, World!');",
+		"language": "Python",
+		"user_id": 1,
+		"created": "Fri Oct 06 2023 14:41:45 GMT-0700 (Pacific Daylight Time)",
+		"bookmarks": 2
+	},
+	{
+		"id": 2,
+		"title": "Calculate Factorial in C++",
+		"snippet": "int factorial(int n) {\n    if (n == 0) return 1;\n    return n * factorial(n - 1);\n}",
+		"language": "C++",
+		"user_id": 3,
+		"created": "Fri Oct 06 2023 15:41:45 GMT-0700 (Pacific Daylight Time)",
+		"bookmarks": 0
+	},
+	{
+		"id": 3,
+		"title": "JavaScript Array Sort",
+		"snippet": "const numbers = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5];\nnumbers.sort((a, b) => a - b);",
+		"language": "JavaScript",
+		"user_id": 2,
+		"created": "Fri Oct 06 2023 16:41:45 GMT-0700 (Pacific Daylight Time)",
+		"bookmarks": 0
+	},
+	{
+		"id": 4,
+		"title": "SQL Query for Customers",
+		"snippet": "SELECT * FROM customers WHERE country = 'USA';",
+		"language": "SQL",
+		"user_id": 4,
+		"created": "Fri Oct 06 2023 17:41:45 GMT-0700 (Pacific Daylight Time)",
+		"bookmarks": 0
+	},
+	{
+		"id": 5,
+		"title": "Java Class Definition",
+		"snippet": "public class MyClass {\n    int value;\n    String name;\n}",
+		"language": "Java",
+		"user_id": 1,
+		"created": "Fri Oct 06 2023 18:41:45 GMT-0700 (Pacific Daylight Time)",
+		"bookmarks": 0
+	}
+]

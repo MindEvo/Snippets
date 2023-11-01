@@ -1,0 +1,92 @@
+[
+    {
+        "id": 1,
+        "username": "Mario",
+        "years_experience": 35,
+        "languages": ["python", "java", "javascript"]
+    },
+    {
+        "id": 2,
+        "username": "Zelda",
+        "years_experience": 20,
+        "languages": ["javascript", "c++", "ruby"]
+    },
+    {
+        "id": 3,
+        "username": "Sonic",
+        "years_experience": 29,
+        "languages": ["python", "java", "php"]
+    },
+    {
+        "id": 4,
+        "username": "LaraCroft",
+        "years_experience": 22,
+        "languages": ["java", "c++", "python", "scala", "sql"]
+    },
+    {
+        "id": 5,
+        "username": "Link",
+        "years_experience": 27,
+        "languages": ["javascript", "python", "go"]
+    },
+    {
+        "id": 6,
+        "username": "MasterChief",
+        "years_experience": 18,
+        "languages": ["c#", "c++", "java", "rust"]
+    },
+    {
+        "id": 7,
+        "username": "SamusAran",
+        "years_experience": 25,
+        "languages": ["python", "javascript", "kotlin"]
+    },
+    {
+        "id": 8,
+        "username": "Kratos",
+        "years_experience": 19,
+        "languages": ["java", "c++", "swift"]
+    },
+    {
+        "id": 9,
+        "username": "NathanDrake",
+        "years_experience": 23,
+        "languages": ["javascript", "python", "typescript"]
+    },
+    {
+        "id": 10,
+        "username": "GeraltOfRivia",
+        "years_experience": 17,
+        "languages": ["python", "java", "c"]
+    },
+    {
+        "id": 11,
+        "username": "Sora",
+        "years_experience": 15,
+        "languages": ["javascript", "c++", "ruby"]
+    },
+    {
+        "id": 12,
+        "username": "DonkeyKong",
+        "years_experience": 28,
+        "languages": ["python", "c++", "scala"]
+    },
+    {
+        "id": 13,
+        "username": "PrincessPeach",
+        "years_experience": 18,
+        "languages": ["java", "javascript", "ruby"]
+    },
+    {
+        "id": 14,
+        "username": "Pikachu",
+        "years_experience": 12,
+        "languages": ["python", "go", "kotlin"]
+    },
+    {
+        "id": 15,
+        "username": "MegaMan",
+        "years_experience": 31,
+        "languages": ["c++", "java", "swift"]
+    }
+]
