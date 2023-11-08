@@ -8,25 +8,7 @@ router.get('/', controller.getUsers);
 
 
 // GET /users/:id
-router.get('/:id', (req, res) => {
-    const { params, query } = req;
-    const id = parseInt(params.id);
-    const user = users.find((user) => user.id === id );
-
-    if (user) {
-        if (query.snippets === 'true') {
-            user.snippets = snippets
-            .filter((snippet) => snippet.user_id === id)
-            .map(snippet => {
-                const { title, user_id} = snippet;
-                return { title, user_id };
-            })
-        }
-        res.json(user);
-    } else {
-        res.status(404).json({ error: `No user found by id: ${id}` });
-    }
-});
+router.get('/:id', controller.getUserById);
 
 
 // POST /users

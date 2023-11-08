@@ -31,9 +31,11 @@ const getUserById = async (req, res) => {
     const { params, query } = req;
     const id = params.id;
 
+    const includeSnippets = util.queryToBoolean(query.snippets);
+
     let user = null;
     try {
-        if (query.snippets === 'true') {
+        if (includeSnippets) {
             const user = await User.findOne(
                 { 
                     _id: id 
@@ -50,14 +52,10 @@ const getUserById = async (req, res) => {
         }
     } catch(error) {
         res.status(500).json({ error: error.toString() });
-    }
-
-
-        // res.json(user);
-        // res.status(404).json({ error: `No user found by id: ${id}` });
-    
+    }    
 }
 
 module.exports = {
-    getUsers
+    getUsers,
+    getUserById
 };
