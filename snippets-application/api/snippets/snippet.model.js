@@ -8,6 +8,9 @@ const SnippetSchema = new mongoose.Schema({
     user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     created: { type: Date, default: Date.now },
     times_bookmarked: Number
+}, {
+    toObject: { virtuals: true},
+    toJSON: { virtuals: true }
 });
 
 const Snippet = mongoose.model('Snippet', SnippetSchema);
