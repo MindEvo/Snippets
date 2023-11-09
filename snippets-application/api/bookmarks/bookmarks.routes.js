@@ -1,17 +1,9 @@
 // MAIN ROUTER
 const router = require('express').Router();
-
-// JSON MOCK DATA FILES
-const bookmarks = require('../../../mock_database/bookmarks.json');
-const snippets = require('../../../mock_database/snippets.json');
-const users = require('../../../mock_database/users.json');
+const controller = require('./bookmark.controller');
 
 
-//GET /bookmarks
-router.get('/', (req, res) => {
-    res.json(bookmarks);
-});
-
+router.get('/', controller.getBookmarks);
 
 //GET /bookmarks/:id
 router.get('/:id', (req, res) => {
@@ -27,7 +19,6 @@ router.get('/:id', (req, res) => {
         res.status(404).json({ error: `No bookmark found by id: ${id}` })
     }
 });
-
 
 // POST /bookmarks/
 router.post('/', (req, res) => {
@@ -70,13 +61,6 @@ router.post('/', (req, res) => {
         res.status(404).json( { error: `No snippet found by id: ${body.snippet_id}`});
     }
 });
-
-// POST BODY EXAMPLE (Number, Number)
-// {
-//     "snippet_id": 1,
-//     "user_id": 1
-// }
-
 
 // DELETE /bookmarks/:id
 router.delete('/:id', (req, res) => {
