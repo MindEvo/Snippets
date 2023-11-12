@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const SnippetSchema = new mongoose.Schema({
-    idx: Number,
+    // idx: Number,
     title: String,
     snippet: String,
     language: String,

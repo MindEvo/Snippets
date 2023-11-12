@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
-    idx: Number,
+    // idx: Number,
     username: { type: String, unique: true},
     years_experience: Number,
     languages: [String]
