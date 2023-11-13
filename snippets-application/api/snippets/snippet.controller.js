@@ -19,22 +19,20 @@ const getSnippets = async(req, res) => {
 const getSnippetById = async (req, res) => {
     const { params, query } = req;
     const id = params.id;
-    let snippet = null;
     
     try {
-        snippet = await Snippet.findOne({ _id: id })
+        let snippet = await Snippet.findOne({ _id: id })
         if (snippet) {
             if (query.includeBookmarks) {
-                snippet = await Snippet.findOne({ _id: id }).populate('bookmarks');
+                snippet = await snippet.populate('bookmarks');
             }
             else if (query.includeTimesBookmarked) {
                 const bookmarksCount = await Bookmark.countDocuments({ snippet_id: id});
-                snippet = await Snippet.findOne({ _id: id })
-                snippet = { ...snippet._doc, times_bookmarked: bookmarksCount };
+                snippet = snippet.toObject();
+                snippet.times_bookmarked = bookmarksCount;
             }
             res.json(snippet);
-        }
-        else {
+        } else {
             res.status(404).json({ error: `No snippet found with id: ${id}`});
         }
     } catch (error) {
@@ -59,7 +57,7 @@ const deleteSnippet = async (req, res) => {
     try {
         const deleted = await Snippet.findOneAndDelete({ _id: id });
         if (deleted) {
-            res.json({ message: 'success', snippet: id})
+            res.json({ message: 'success', snippet: deleted._id});
         } else {
             res.status(404).json({ error: `No snippet found by id: ${id}`});
         }

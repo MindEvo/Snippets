@@ -20,7 +20,7 @@ SnippetSchema.virtual('bookmarks', {
 SnippetSchema.post('findOneAndDelete', async function(doc) {
     const Bookmark = mongoose.model('Bookmark');
     try {
-        await Bookmark.deleteMany({ _id: { snippet_id: doc._id } });
+        await Bookmark.deleteMany({ snippet_id: doc._id });
     } catch (error) {
         console.log('Error deleting associated bookmarks')
     }
