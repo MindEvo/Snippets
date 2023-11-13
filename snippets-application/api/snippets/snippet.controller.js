@@ -22,14 +22,16 @@ const getSnippetById = async (req, res) => {
     let snippet = null;
     
     try {
-        if (query.includeBookmarks) {
-            snippet = await Snippet.findOne({ _id: id }).populate('bookmarks'); 
-            res.json(snippet);
-        }
-        else if (query.includeTimesBookmarked) {
-            const bookmarksCount = await Bookmark.countDocuments({ snippet_id: id});
-            snippet = await Snippet.findOne({ _id: id })
-            snippet = { ...snippet._doc, times_bookmarked: bookmarksCount };
+        snippet = await Snippet.findOne({ _id: id })
+        if (snippet) {
+            if (query.includeBookmarks) {
+                snippet = await Snippet.findOne({ _id: id }).populate('bookmarks');
+            }
+            else if (query.includeTimesBookmarked) {
+                const bookmarksCount = await Bookmark.countDocuments({ snippet_id: id});
+                snippet = await Snippet.findOne({ _id: id })
+                snippet = { ...snippet._doc, times_bookmarked: bookmarksCount };
+            }
             res.json(snippet);
         }
         else {
