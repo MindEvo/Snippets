@@ -28,7 +28,6 @@ const getUsers = async (req, res) => {
 const getUserById = async (req, res) => {
     const { params, query } = req;
     const id = params.id;
-    // const includeSnippets = util.queryToBoolean(query.snippets);
     let user = null;
     try {
         if (query.snippets) {

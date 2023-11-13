@@ -1,5 +1,5 @@
 const Snippet = require('./snippet.model');
-
+const Bookmark = require('../bookmarks/bookmark.model');
 
 const getSnippets = async(req, res) => {
     const { query } = req;
@@ -20,11 +20,19 @@ const getSnippetById = async (req, res) => {
     const { params, query } = req;
     const id = params.id;
     let snippet = null;
+    
     try {
-        snippet = await Snippet.findOne({ _id: id });
-        if (snippet) {
+        if (query.includeBookmarks) {
+            snippet = await Snippet.findOne({ _id: id }).populate('bookmarks'); 
             res.json(snippet);
-        } else {
+        }
+        else if (query.includeTimesBookmarked) {
+            const bookmarksCount = await Bookmark.countDocuments({ snippet_id: id});
+            snippet = await Snippet.findOne({ _id: id })
+            snippet = { ...snippet._doc, times_bookmarked: bookmarksCount };
+            res.json(snippet);
+        }
+        else {
             res.status(404).json({ error: `No snippet found with id: ${id}`});
         }
     } catch (error) {
@@ -43,21 +51,6 @@ const createSnippet = async (req, res) => {
     }
 }
 
-// const updateSnippet = async (req, res) => {
-//     const { params, body } = req;
-//     const id = params.id;
-//     try {
-//         const updated = await Snippet.findOneAndUpdate({ _id: id }, body)
-//         if (updated) {
-//             res.json(updated);
-//         } else {
-//             res.status(404).json( { error: `No snippet found by id: `} );
-//         }
-//     } catch(error) {
-//         res.status(500).json({ error: error.toString() });
-//     }
-// }
-
 const deleteSnippet = async (req, res) => {
     const { params } = req;
     const id = params.id;
@@ -71,8 +64,6 @@ const deleteSnippet = async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: error.toString() });
     }
-
-    //TODO: find and remove the bookmarks associated with the snippet
 }
 
 module.exports = {
