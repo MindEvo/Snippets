@@ -1,6 +1,9 @@
-const User = require('./user.model');
-const util = require('../util');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken')
 
+const User = require('./user.model');
+
+const config = require('../../config.json');
 
 const getUsers = async (req, res) => {
     const { query } = req;
@@ -18,7 +21,7 @@ const getUsers = async (req, res) => {
         filter = { username: { $regex: username, $options: 'i'} }
     }
     try {
-        const users = await User.find(filter);
+        const users = await User.find(filter).select('-password');
         res.json(users);
     } catch(error) {
         res.status(500).json({ error: error.toString() });
@@ -30,11 +33,11 @@ const getUserById = async (req, res) => {
     const id = params.id;
     let user = null;
     try {
+        const virtuals = [];
         if (query.snippets) {
-            user = await User.findOne({  _id: id }).populate('snippets'); 
-        } else {
-            user = await User.findOne( { _id: id } );
-        }
+            virtuals.push('snippets');
+        } 
+        user = await User.findOne({  _id: id }).select('-password').populate(virtuals);        
         if (user) {
             res.json(user);
         } else {
@@ -45,13 +48,55 @@ const getUserById = async (req, res) => {
     }    
 }
 
-const createUser = async (req, res) => {
+const registerUser = async (req, res) => {
     const { body } = req;
+    const { username, password } = body;
+
+    if (!password || !username) {
+        return res
+            .status(400)
+            .json({ error: 'Username and Password are required' });
+    }
+
     try {
-        const userDoc = new User(body);
-        const user = await userDoc.save();
-        res.json(user)
+        // gen salt which changes each time the function is called
+        const salt = await bcrypt.genSalt(10);
+        // use the password + salt to create a hashed password
+        const hashed = await bcrypt.hash(password, salt);
+
+        const userDoc = new User({ ...body, password: hashed });
+        const saved = await userDoc.save();
+
+        // POJO: plain old javascript object
+        const user = saved.toObject();
+        delete user.password;
+        res.json(user);
     } catch (error) {
+        res.status(500).json({ error: error.toString() });
+    }
+}
+
+const loginUser = async (req, res) => {
+    const { username, password } = req.body;
+    try {
+        const user = await User.findOne({ username: username.toLowerCase() })
+        if (!user) {
+            return res.status(401).json({ error: 'Invalid credentials'})
+        }
+        const authenticated = await bcrypt.compare(password, user.password);
+        if (authenticated) {
+            const token = jwt.sign(
+                { id: user._id, username: user.username },
+                config.jwtsecret,
+                { expiresIn: '24h' }
+            );
+            const authorized = user.toObject();
+            delete authorized.password;
+            res.header('Authorization', `Bearer ${token}`).json(authorized);
+        } else {
+            res.status(401).json({ error: 'Invalid credentials' });
+        }
+    } catch(error) {
         res.status(500).json({ error: error.toString() });
     }
 }
@@ -75,6 +120,7 @@ const updateUser = async (req, res) => {
 module.exports = {
     getUsers,
     getUserById,
-    createUser,
+    registerUser,
+    loginUser,
     updateUser
 };

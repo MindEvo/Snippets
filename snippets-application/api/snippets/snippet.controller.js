@@ -1,5 +1,4 @@
 const Snippet = require('./snippet.model');
-const Bookmark = require('../bookmarks/bookmark.model');
 
 const getSnippets = async(req, res) => {
     const { query } = req;
@@ -27,6 +26,7 @@ const getSnippetById = async (req, res) => {
                 snippet = await snippet.populate('bookmarks');
             }
             else if (query.includeTimesBookmarked) {
+                const Bookmark = mongoose.model('Bookmark');
                 const bookmarksCount = await Bookmark.countDocuments({ snippet_id: id});
                 snippet = snippet.toObject();
                 snippet.times_bookmarked = bookmarksCount;

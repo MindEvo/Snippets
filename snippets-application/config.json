@@ -1,6 +1,6 @@
 {
     "username": "admin",
     "password": "hvetNXnGZZQm1jmm",
-    "projectname": "Snippets"
-
+    "projectname": "Snippets",
+    "jwtsecret": "coffee"
 }
