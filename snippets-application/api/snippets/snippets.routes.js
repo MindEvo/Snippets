@@ -6,7 +6,6 @@ const controller = require('./snippet.controller')
 router.get('/', controller.getSnippets);
 router.get('/:id', controller.getSnippetById);
 router.post('/', controller.createSnippet);
-// router.put('/:id', controller.updateSnippet);
 router.delete('/:id', controller.deleteSnippet);
 
 

@@ -105,7 +105,10 @@ const updateUser = async (req, res) => {
     const { params, body } = req;
     const id = params.id;
     try {
-        const user = await User.findOneAndUpdate({ _id: id}, body);
+        // prevent saving plaintext password in database
+        delete body.password;
+
+        const user = await User.findOneAndUpdate({ _id: id}, body).select('-password');
         if(user) {
             res.json(user);
         } else {
