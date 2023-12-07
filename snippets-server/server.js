@@ -3,13 +3,14 @@
 // 3. run: npm run start
 
 const express = require('express');
-
+const cors = require('cors');
 const mongo = require('./mongo/index.js');
-
 const app = express();
 
 const PORT = 8080;
+const options = { exposedHeaders: ['Authorization'] };
 
+app.use(cors(options));
 app.use(express.json());
 
 // require in resource routes
