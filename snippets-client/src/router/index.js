@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-import HelloWorld from '../components/HelloWorld.vue';
+// HelloWorld is a Homepage with a logo [tried changing filename but it broke my entire application]
+import HelloWorld from '../components/HelloWorld.vue'; 
 
 import About from '../components/About.vue';
 
